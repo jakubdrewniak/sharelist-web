@@ -3,4 +3,4 @@
 
 npx pretty-quick --staged
 ng lint
-ng test
+npm run test-ci
