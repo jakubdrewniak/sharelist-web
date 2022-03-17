@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Socket } from 'ngx-socket-io'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'sharelist-web'
   callbackMessage = ''
   messageFromServer = ''
+  subscription: Subscription
+
   constructor(private socket: Socket) {}
 
   ngOnInit() {
-    this.socket
+   this.subscription = this.socket
       .fromEvent<{ msg: string }>('message')
       .subscribe((data: { msg: string }) => {
         this.messageFromServer = data.msg
@@ -26,5 +29,9 @@ export class AppComponent implements OnInit {
         this.callbackMessage = 'Callback succeeded!'
       }
     )
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 }
