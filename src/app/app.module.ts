@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { CatalogModule } from './catalog/catalog.module'
 import { HomeModule } from './home/home.module'
 import { AppRoutingModule } from './app-routing.module'
+import { MaterialModule } from './material.module'
 
 const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} }
 
@@ -16,6 +17,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} }
     SocketIoModule.forRoot(config),
     CatalogModule,
     HomeModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
