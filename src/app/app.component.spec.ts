@@ -22,13 +22,4 @@ describe('AppComponent', () => {
   it('should create the app', () => {
     expect(component).toBeTruthy()
   })
-
-  it(`should have as title 'sharelist-web'`, () => {
-    expect(component.title).toEqual('sharelist-web')
-  })
-
-  it('should render title', () => {
-    const compiled = fixture.nativeElement as HTMLElement
-    expect(compiled.querySelector('h1')?.textContent).toContain('sharelist-web')
-  })
 })
