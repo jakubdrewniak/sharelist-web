@@ -1,7 +1,7 @@
 <mat-list role="list" class="px-6">
   <mat-list-item
     role="listitem"
-    *ngFor="let catalog of catalogList"
+    *ngFor="let catalog of catalogList$ | async"
     matRipple
     [matRippleTrigger]="rippleTrigger"
     class="cursor-pointer bg-white mb-4 border-solid border rounded-lg border-indigo-200 shadow-md shadow-indigo-200/30"
