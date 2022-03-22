@@ -7,15 +7,22 @@ import { CatalogsListComponent } from './catalogs-list/catalogs-list.component'
 import { SharedModule } from '../shared/shared.module'
 import { CatalogsListService } from './services/catalogs.service'
 import { HttpClientModule } from '@angular/common/http'
+import { NewCatalogDialogComponent } from './new-catalog-dialog/new-catalog-dialog.component'
+import { FormsModule } from '@angular/forms'
 
 @NgModule({
-  declarations: [HomeComponent, CatalogsListComponent],
+  declarations: [
+    HomeComponent,
+    CatalogsListComponent,
+    NewCatalogDialogComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
     MaterialModule,
     SharedModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [CatalogsListService],
 })
