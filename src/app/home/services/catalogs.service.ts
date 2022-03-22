@@ -15,6 +15,6 @@ export class CatalogsListService {
   }
 
   addNewCatalog(name: string): Observable<string> {
-    return this.httpClient.post<string>(`${this.baseApiURL}/catalogs`, name)
+    return this.httpClient.post<string>(`${this.baseApiURL}/catalogs`, { name })
   }
 }
