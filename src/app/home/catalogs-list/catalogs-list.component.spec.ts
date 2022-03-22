@@ -2,6 +2,7 @@ import { DebugElement } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { of } from 'rxjs/internal/observable/of'
+import { MaterialModule } from 'src/app/material.module'
 import { Catalog, CatalogsListService } from '../services/catalogs.service'
 
 import { CatalogsListComponent } from './catalogs-list.component'
@@ -24,6 +25,7 @@ describe('CatalogsListComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [CatalogsListComponent],
+      imports: [MaterialModule],
       providers: [{ provide: CatalogsListService, useValue: mockCatalogsSvc }],
     }).compileComponents()
   })
