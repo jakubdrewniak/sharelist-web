@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { Observable } from 'rxjs/internal/Observable'
 import { catchError } from 'rxjs/internal/operators/catchError'
-import { Catalog, CatalogsListService } from '../services/catalogs.service'
+import { Catalog } from 'src/app/shared/typings/catalog'
+import { CatalogsListService } from '../services/catalogs.service'
 
 @Component({
   selector: 'app-catalogs-list',

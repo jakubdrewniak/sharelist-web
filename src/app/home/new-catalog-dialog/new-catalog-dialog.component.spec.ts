@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { FormsModule } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { MaterialModule } from 'src/app/material.module'
 import { NewCatalogDialogComponent } from './new-catalog-dialog.component'
@@ -10,7 +11,7 @@ describe('NewCatalogDialogComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NewCatalogDialogComponent],
-      imports: [MaterialModule],
+      imports: [MaterialModule, FormsModule],
       providers: [
         {
           provide: MatDialogRef,

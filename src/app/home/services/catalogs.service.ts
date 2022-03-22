@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-
-export type Catalog = { name: string }
+import { Catalog } from 'src/app/shared/typings/catalog'
 
 @Injectable()
 export class CatalogsListService {

@@ -1,9 +1,11 @@
 import { DebugElement } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
+import { RouterTestingModule } from '@angular/router/testing'
 import { of } from 'rxjs/internal/observable/of'
 import { MaterialModule } from 'src/app/material.module'
-import { Catalog, CatalogsListService } from '../services/catalogs.service'
+import { Catalog } from 'src/app/shared/typings/catalog'
+import { CatalogsListService } from '../services/catalogs.service'
 
 import { CatalogsListComponent } from './catalogs-list.component'
 
@@ -25,7 +27,7 @@ describe('CatalogsListComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [CatalogsListComponent],
-      imports: [MaterialModule],
+      imports: [MaterialModule, RouterTestingModule],
       providers: [{ provide: CatalogsListService, useValue: mockCatalogsSvc }],
     }).compileComponents()
   })
