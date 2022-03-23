@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { CatalogComponent } from './catalog.component'
 import { RouterTestingModule } from '@angular/router/testing'
+import { Socket } from 'ngx-socket-io'
+import { MaterialModule } from '../material.module'
 
 describe('CatalogComponent', () => {
   let component: CatalogComponent
@@ -9,7 +11,10 @@ describe('CatalogComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CatalogComponent],
-      imports: [RouterTestingModule, RouterTestingModule],
+      imports: [RouterTestingModule, RouterTestingModule, MaterialModule],
+      providers: [
+        { provide: Socket, useValue: { fromEvent: () => {}, emit: () => {} } },
+      ],
     }).compileComponents()
   })
 

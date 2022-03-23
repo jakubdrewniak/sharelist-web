@@ -1,2 +1,33 @@
-<p>Catalog Component</p>
-<a [routerLink]="['../..']">Back</a>
+<div *ngIf="catalog$ | async as catalog">
+  <p>Catalog Component</p>
+  <a [routerLink]="['../..']">Back</a>
+  <div *ngFor="let item of catalog.products">
+    <span>{{ item.name }}</span>
+    <span>{{ item.quantity || '-' }}</span>
+    <span>{{ item.unit || '-' }}</span>
+  </div>
+
+  <form (ngSubmit)="addNewItem(catalog.products)">
+    <mat-form-field>
+      <mat-label>Name*</mat-label>
+      <input
+        name="name"
+        matInput
+        [(ngModel)]="newCatalogItem.name"
+        #nameInput
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Quantity</mat-label>
+      <input name="quantity" matInput [(ngModel)]="newCatalogItem.quantity" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Unit</mat-label>
+      <input name="unit" matInput [(ngModel)]="newCatalogItem.unit" />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Add item</button>
+  </form>
+</div>
