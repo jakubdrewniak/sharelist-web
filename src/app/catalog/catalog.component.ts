@@ -1,9 +1,14 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Socket } from 'ngx-socket-io'
-import { Subscription } from 'rxjs'
-import { Observable } from 'rxjs/internal/Observable'
+import { Subject, Subscription, takeUntil } from 'rxjs'
 import { Catalog, Product } from '../shared/typings/catalog'
 
 @Component({
@@ -11,11 +16,12 @@ import { Catalog, Product } from '../shared/typings/catalog'
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.scss'],
 })
-export class CatalogComponent implements OnInit {
+export class CatalogComponent implements OnInit, OnDestroy {
   newCatalogItem: Product
-  catalog$: Observable<Catalog>
+  catalog: Catalog
   subscription: Subscription
   catalogID: string | null
+  private unsubscribe = new Subject<void>()
 
   @ViewChild('nameInput') nameInput: ElementRef
 
@@ -29,15 +35,27 @@ export class CatalogComponent implements OnInit {
   ngOnInit() {
     this.resetNewCatalogItem()
     this.catalogID = this.route.snapshot.paramMap.get('id')
-    this.catalog$ = this.socket.fromEvent<Catalog>('catalog')
+
+    this.socket
+      .fromEvent<Catalog>('catalog')
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((catalog: Catalog) => (this.catalog = catalog))
 
     this.joinRoom()
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next()
+    this.unsubscribe.complete()
   }
 
   addNewItem(products: Product[] = []) {
     if (!this.newCatalogItem?.name) return
 
-    const updatedProducts = [{ ...this.newCatalogItem }, ...products]
+    const updatedProducts = [
+      { ...this.newCatalogItem, completed: false },
+      ...products,
+    ]
 
     this.socket.emit(
       'updateProducts',
@@ -47,6 +65,18 @@ export class CatalogComponent implements OnInit {
           return this.snackBar.open('There has been problem in updating list')
         return this.resetNewCatalogItem()
       }
+    )
+  }
+
+  itemCheckToggle(products: Product[] | undefined, index: number): void {
+    if (!products) return
+    const updatedProducts = JSON.parse(JSON.stringify(products))
+    updatedProducts[index].completed = !updatedProducts[index].completed
+
+    this.socket.emit(
+      'updateProducts',
+      { _id: this.catalogID, products: updatedProducts },
+      () => {}
     )
   }
 

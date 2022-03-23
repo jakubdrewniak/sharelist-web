@@ -1,47 +1,75 @@
-<ng-container *ngIf="catalog$ | async as catalog">
-  <app-header>
-    <button mat-icon-button class="text-white" [routerLink]="['../..']">
-      <mat-icon>arrow_back_ios</mat-icon>
+<app-header>
+  <button mat-icon-button class="text-white" [routerLink]="['../..']">
+    <mat-icon>arrow_back_ios</mat-icon>
+  </button>
+  <h1 class="text-white">{{ catalog?.name }}</h1>
+</app-header>
+
+<section class="px-6" *ngIf="catalog">
+  <form (ngSubmit)="addNewItem(catalog.products)" class="flex gap-2 mt-4">
+    <mat-form-field class="min-w-0 flex-1">
+      <mat-label>Add new product*</mat-label>
+      <input
+        name="name"
+        matInput
+        [(ngModel)]="newCatalogItem.name"
+        #nameInput
+      />
+    </mat-form-field>
+
+    <mat-form-field class="min-w-0 w-24">
+      <mat-label>Quantity</mat-label>
+      <input
+        name="quantity"
+        type="number"
+        matInput
+        [(ngModel)]="newCatalogItem.quantity"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="min-w-0 w-24">
+      <mat-label>Unit</mat-label>
+      <input name="unit" matInput [(ngModel)]="newCatalogItem.unit" />
+    </mat-form-field>
+
+    <button mat-mini-fab color="primary" type="submit" class="mt-2">
+      <mat-icon>add</mat-icon>
     </button>
-    <h1 class="text-white">{{ catalog.name }}</h1>
-  </app-header>
+  </form>
 
-  <section class="px-6">
-    <form (ngSubmit)="addNewItem(catalog.products)" class="flex gap-2 mt-4">
-      <mat-form-field class="min-w-0">
-        <mat-label>Name*</mat-label>
-        <input
-          name="name"
-          matInput
-          [(ngModel)]="newCatalogItem.name"
-          #nameInput
-        />
-      </mat-form-field>
+  <mat-list role="list">
+    <mat-list-item
+      *ngFor="let item of catalog.products; index as i"
+      [ngClass]="{ 'bg-indigo-50': item.completed }"
+      matRipple
+      [matRippleTrigger]="rippleTrigger"
+    >
+      <div
+        class="flex items-center gap-1 justify-between w-full h-full items-stretch"
+      >
+        <div
+          class="flex flex-1 items-center gap-1 cursor-pointer"
+          #rippleTrigger
+          (click)="itemCheckToggle(catalog.products, i)"
+        >
+          <span
+            class="text-base text-indigo-900"
+            [ngClass]="{ 'text-indigo-300': item.completed }"
+            >{{ item.name }}</span
+          >
+          <span class="text-sm text-indigo-300">{{ item.quantity }}</span>
+          <span class="text-sm text-indigo-300" *ngIf="item.quantity">{{
+            item.unit
+          }}</span>
+        </div>
 
-      <mat-form-field class="min-w-0 w-24">
-        <mat-label>Quantity</mat-label>
-        <input
-          name="quantity"
-          type="number"
-          matInput
-          [(ngModel)]="newCatalogItem.quantity"
-        />
-      </mat-form-field>
-
-      <mat-form-field class="min-w-0 w-24">
-        <mat-label>Unit</mat-label>
-        <input name="unit" matInput [(ngModel)]="newCatalogItem.unit" />
-      </mat-form-field>
-
-      <button mat-mini-fab color="primary" type="submit" class="mt-2">
-        <mat-icon>add</mat-icon>
-      </button>
-    </form>
-
-    <div *ngFor="let item of catalog.products">
-      <span>{{ item.name }}</span>
-      <span>{{ item.quantity || '-' }}</span>
-      <span>{{ item.unit || '-' }}</span>
-    </div>
-  </section>
-</ng-container>
+        <div class="flex items-center">
+          <mat-checkbox
+            [checked]="!!item.completed"
+            (change)="itemCheckToggle(catalog.products, i)"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</section>

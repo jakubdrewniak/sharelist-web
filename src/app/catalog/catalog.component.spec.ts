@@ -3,6 +3,9 @@ import { CatalogComponent } from './catalog.component'
 import { RouterTestingModule } from '@angular/router/testing'
 import { Socket } from 'ngx-socket-io'
 import { MaterialModule } from '../material.module'
+import { of } from 'rxjs'
+import { HeaderComponent } from '../shared/header/header.component'
+import { FormsModule } from '@angular/forms'
 
 describe('CatalogComponent', () => {
   let component: CatalogComponent
@@ -10,10 +13,18 @@ describe('CatalogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CatalogComponent],
-      imports: [RouterTestingModule, RouterTestingModule, MaterialModule],
+      declarations: [CatalogComponent, HeaderComponent],
+      imports: [
+        RouterTestingModule,
+        RouterTestingModule,
+        MaterialModule,
+        FormsModule,
+      ],
       providers: [
-        { provide: Socket, useValue: { fromEvent: () => {}, emit: () => {} } },
+        {
+          provide: Socket,
+          useValue: { fromEvent: () => of({}), emit: () => {} },
+        },
       ],
     }).compileComponents()
   })

@@ -4,4 +4,5 @@ export interface Product {
   name: string
   quantity?: number
   unit?: string
+  completed?: boolean
 }
