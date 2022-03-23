@@ -1,33 +1,47 @@
-<div *ngIf="catalog$ | async as catalog">
-  <p>Catalog Component</p>
-  <a [routerLink]="['../..']">Back</a>
-  <div *ngFor="let item of catalog.products">
-    <span>{{ item.name }}</span>
-    <span>{{ item.quantity || '-' }}</span>
-    <span>{{ item.unit || '-' }}</span>
-  </div>
+<ng-container *ngIf="catalog$ | async as catalog">
+  <app-header>
+    <button mat-icon-button class="text-white" [routerLink]="['../..']">
+      <mat-icon>arrow_back_ios</mat-icon>
+    </button>
+    <h1 class="text-white">{{ catalog.name }}</h1>
+  </app-header>
 
-  <form (ngSubmit)="addNewItem(catalog.products)">
-    <mat-form-field>
-      <mat-label>Name*</mat-label>
-      <input
-        name="name"
-        matInput
-        [(ngModel)]="newCatalogItem.name"
-        #nameInput
-      />
-    </mat-form-field>
+  <section class="px-6">
+    <form (ngSubmit)="addNewItem(catalog.products)" class="flex gap-2 mt-4">
+      <mat-form-field class="min-w-0">
+        <mat-label>Name*</mat-label>
+        <input
+          name="name"
+          matInput
+          [(ngModel)]="newCatalogItem.name"
+          #nameInput
+        />
+      </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Quantity</mat-label>
-      <input name="quantity" matInput [(ngModel)]="newCatalogItem.quantity" />
-    </mat-form-field>
+      <mat-form-field class="min-w-0 w-24">
+        <mat-label>Quantity</mat-label>
+        <input
+          name="quantity"
+          type="number"
+          matInput
+          [(ngModel)]="newCatalogItem.quantity"
+        />
+      </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Unit</mat-label>
-      <input name="unit" matInput [(ngModel)]="newCatalogItem.unit" />
-    </mat-form-field>
+      <mat-form-field class="min-w-0 w-24">
+        <mat-label>Unit</mat-label>
+        <input name="unit" matInput [(ngModel)]="newCatalogItem.unit" />
+      </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">Add item</button>
-  </form>
-</div>
+      <button mat-mini-fab color="primary" type="submit" class="mt-2">
+        <mat-icon>add</mat-icon>
+      </button>
+    </form>
+
+    <div *ngFor="let item of catalog.products">
+      <span>{{ item.name }}</span>
+      <span>{{ item.quantity || '-' }}</span>
+      <span>{{ item.unit || '-' }}</span>
+    </div>
+  </section>
+</ng-container>

@@ -4,9 +4,16 @@ import { CatalogComponent } from './catalog.component'
 import { RouterModule } from '@angular/router'
 import { FormsModule } from '@angular/forms'
 import { MaterialModule } from '../material.module'
+import { SharedModule } from '../shared/shared.module'
 
 @NgModule({
   declarations: [CatalogComponent],
-  imports: [CommonModule, RouterModule, FormsModule, MaterialModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    MaterialModule,
+    SharedModule,
+  ],
 })
 export class CatalogModule {}

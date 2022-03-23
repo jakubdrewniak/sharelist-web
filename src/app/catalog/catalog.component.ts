@@ -37,7 +37,7 @@ export class CatalogComponent implements OnInit {
   addNewItem(products: Product[] = []) {
     if (!this.newCatalogItem?.name) return
 
-    const updatedProducts = [...products, { ...this.newCatalogItem }]
+    const updatedProducts = [{ ...this.newCatalogItem }, ...products]
 
     this.socket.emit(
       'updateProducts',
