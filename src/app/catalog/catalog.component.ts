@@ -1,15 +1,10 @@
-import {
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core'
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Socket } from 'ngx-socket-io'
 import { Subject, Subscription, takeUntil } from 'rxjs'
 import { Catalog, Product } from '../shared/typings/catalog'
+import { NewProductFormComponent } from './new-product-form/new-product-form.component'
 
 @Component({
   selector: 'app-catalog',
@@ -17,13 +12,12 @@ import { Catalog, Product } from '../shared/typings/catalog'
   styleUrls: ['./catalog.component.scss'],
 })
 export class CatalogComponent implements OnInit, OnDestroy {
-  newCatalogItem: Product
   catalog: Catalog
   subscription: Subscription
   catalogID: string | null
   private unsubscribe = new Subject<void>()
 
-  @ViewChild('nameInput') nameInput: ElementRef
+  @ViewChild(NewProductFormComponent) productForm: NewProductFormComponent
 
   constructor(
     private route: ActivatedRoute,
@@ -33,7 +27,6 @@ export class CatalogComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.resetNewCatalogItem()
     this.catalogID = this.route.snapshot.paramMap.get('id')
 
     this.socket
@@ -49,12 +42,12 @@ export class CatalogComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete()
   }
 
-  addNewItem(products: Product[] = []) {
-    if (!this.newCatalogItem?.name) return
+  addNewItem(newProduct: Product) {
+    if (!newProduct?.name) return
 
     const updatedProducts = [
-      { ...this.newCatalogItem, completed: false },
-      ...products,
+      { ...newProduct, completed: false },
+      ...(this.catalog?.products || []),
     ]
 
     this.socket.emit(
@@ -63,7 +56,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
       (err: unknown) => {
         if (err)
           return this.snackBar.open('There has been problem in updating list')
-        return this.resetNewCatalogItem()
+        return this.productForm?.resetNewProduct()
       }
     )
   }
@@ -78,13 +71,6 @@ export class CatalogComponent implements OnInit, OnDestroy {
       { _id: this.catalogID, products: updatedProducts },
       () => {}
     )
-  }
-
-  private resetNewCatalogItem(): void {
-    this.newCatalogItem = {
-      name: '',
-    }
-    this.nameInput?.nativeElement.focus()
   }
 
   private joinRoom(): void {

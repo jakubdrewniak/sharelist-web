@@ -6,6 +6,7 @@ import { MaterialModule } from '../material.module'
 import { of } from 'rxjs'
 import { HeaderComponent } from '../shared/header/header.component'
 import { FormsModule } from '@angular/forms'
+import { NewProductFormComponent } from './new-product-form/new-product-form.component'
 
 describe('CatalogComponent', () => {
   let component: CatalogComponent
@@ -13,7 +14,11 @@ describe('CatalogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CatalogComponent, HeaderComponent],
+      declarations: [
+        CatalogComponent,
+        HeaderComponent,
+        NewProductFormComponent,
+      ],
       imports: [
         RouterTestingModule,
         RouterTestingModule,

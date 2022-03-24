@@ -6,36 +6,9 @@
 </app-header>
 
 <section class="px-6" *ngIf="catalog">
-  <form (ngSubmit)="addNewItem(catalog.products)" class="flex gap-2 mt-4">
-    <mat-form-field class="min-w-0 flex-1">
-      <mat-label>Add new product*</mat-label>
-      <input
-        name="name"
-        matInput
-        [(ngModel)]="newCatalogItem.name"
-        #nameInput
-      />
-    </mat-form-field>
-
-    <mat-form-field class="min-w-0 w-24">
-      <mat-label>Quantity</mat-label>
-      <input
-        name="quantity"
-        type="number"
-        matInput
-        [(ngModel)]="newCatalogItem.quantity"
-      />
-    </mat-form-field>
-
-    <mat-form-field class="min-w-0 w-24">
-      <mat-label>Unit</mat-label>
-      <input name="unit" matInput [(ngModel)]="newCatalogItem.unit" />
-    </mat-form-field>
-
-    <button mat-mini-fab color="primary" type="submit" class="mt-2">
-      <mat-icon>add</mat-icon>
-    </button>
-  </form>
+  <app-new-product-form
+    (newProduct)="addNewItem($event)"
+  ></app-new-product-form>
 
   <mat-list role="list">
     <mat-list-item
@@ -65,6 +38,7 @@
 
         <div class="flex items-center">
           <mat-checkbox
+            color="primary"
             [checked]="!!item.completed"
             (change)="itemCheckToggle(catalog.products, i)"
           ></mat-checkbox>

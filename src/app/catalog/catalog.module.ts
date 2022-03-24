@@ -5,9 +5,10 @@ import { RouterModule } from '@angular/router'
 import { FormsModule } from '@angular/forms'
 import { MaterialModule } from '../material.module'
 import { SharedModule } from '../shared/shared.module'
+import { NewProductFormComponent } from './new-product-form/new-product-form.component'
 
 @NgModule({
-  declarations: [CatalogComponent],
+  declarations: [CatalogComponent, NewProductFormComponent],
   imports: [
     CommonModule,
     RouterModule,
