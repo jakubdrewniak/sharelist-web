@@ -6,13 +6,27 @@
 </app-header>
 
 <section class="px-6" *ngIf="catalog">
-  <app-new-product-form
-    (newProduct)="addNewItem($event)"
-  ></app-new-product-form>
+  <div class="flex items-center gap-2">
+    <app-product-form
+      #newProductForm
+      (submitProduct)="addNewItem(newProductForm.newCatalogItem)"
+      class="flex-1"
+    ></app-product-form>
+    <button
+      mat-mini-fab
+      color="primary"
+      class="mt-2"
+      [disabled]="!newProductForm?.newCatalogItem?.name"
+      (click)="addNewItem(newProductForm.newCatalogItem)"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 
   <app-products-list
     [products]="catalog.products"
     (toggleCompleted)="toggleCompleted($event)"
     (deleteProduct)="deleteProduct($event)"
+    (editProduct)="editProduct($event)"
   ></app-products-list>
 </section>

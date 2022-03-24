@@ -6,7 +6,7 @@ import { MaterialModule } from '../material.module'
 import { of } from 'rxjs'
 import { HeaderComponent } from '../shared/header/header.component'
 import { FormsModule } from '@angular/forms'
-import { NewProductFormComponent } from './new-product-form/new-product-form.component'
+import { ProductFormComponent } from './product-form/product-form.component'
 import { ProductsListComponent } from './products-list/products-list.component'
 
 describe('CatalogComponent', () => {
@@ -18,7 +18,7 @@ describe('CatalogComponent', () => {
       declarations: [
         CatalogComponent,
         HeaderComponent,
-        NewProductFormComponent,
+        ProductFormComponent,
         ProductsListComponent,
       ],
       imports: [

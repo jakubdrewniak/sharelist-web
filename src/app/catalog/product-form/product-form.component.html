@@ -1,4 +1,4 @@
-<form (ngSubmit)="submitProduct()" class="flex gap-2 mt-4">
+<form (ngSubmit)="submitForm()" class="flex gap-2 mt-4">
   <mat-form-field class="min-w-0 flex-1">
     <mat-label>Add new product*</mat-label>
     <input name="name" matInput [(ngModel)]="newCatalogItem.name" #nameInput />
@@ -19,13 +19,5 @@
     <input name="unit" matInput [(ngModel)]="newCatalogItem.unit" />
   </mat-form-field>
 
-  <button
-    mat-mini-fab
-    color="primary"
-    type="submit"
-    class="mt-2"
-    [disabled]="!newCatalogItem.name"
-  >
-    <mat-icon>add</mat-icon>
-  </button>
+  <input type="submit" hidden />
 </form>

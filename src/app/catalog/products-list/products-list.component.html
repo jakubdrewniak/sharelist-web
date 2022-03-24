@@ -13,7 +13,7 @@
           <button mat-icon-button color="primary" (click)="deleteItem(index)">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-icon-button color="primary">
+          <button mat-icon-button color="primary" (click)="editItem(index)">
             <mat-icon>edit</mat-icon>
           </button>
         </div>
@@ -62,7 +62,7 @@
       <mat-icon>delete</mat-icon>
       <span>Delete</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="editItem(index)">
       <mat-icon>edit</mat-icon>
       <span>Edit</span>
     </button>

@@ -10,6 +10,7 @@ export class ProductsListComponent {
   @Input() products: Product[]
   @Output() toggleCompleted: EventEmitter<number> = new EventEmitter<number>()
   @Output() deleteProduct: EventEmitter<number> = new EventEmitter<number>()
+  @Output() editProduct: EventEmitter<number> = new EventEmitter<number>()
 
   itemCheckToggle(index: number): void {
     this.toggleCompleted.emit(index)
@@ -17,5 +18,9 @@ export class ProductsListComponent {
 
   deleteItem(index: number): void {
     this.deleteProduct.emit(index)
+  }
+
+  editItem(index: number): void {
+    this.editProduct.emit(index)
   }
 }

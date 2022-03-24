@@ -5,14 +5,16 @@ import { RouterModule } from '@angular/router'
 import { FormsModule } from '@angular/forms'
 import { MaterialModule } from '../material.module'
 import { SharedModule } from '../shared/shared.module'
-import { NewProductFormComponent } from './new-product-form/new-product-form.component'
 import { ProductsListComponent } from './products-list/products-list.component'
+import { ProductFormComponent } from './product-form/product-form.component'
+import { EditProductDialogComponent } from './edit-product-dialog/edit-product-dialog.component'
 
 @NgModule({
   declarations: [
     CatalogComponent,
-    NewProductFormComponent,
+    ProductFormComponent,
     ProductsListComponent,
+    EditProductDialogComponent,
   ],
   imports: [
     CommonModule,

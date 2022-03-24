@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Socket } from 'ngx-socket-io'
 import { Subject, Subscription, takeUntil } from 'rxjs'
 import { Catalog, Product } from '../shared/typings/catalog'
-import { NewProductFormComponent } from './new-product-form/new-product-form.component'
+import { EditProductDialogComponent } from './edit-product-dialog/edit-product-dialog.component'
+import { ProductFormComponent } from './product-form/product-form.component'
 
 @Component({
   selector: 'app-catalog',
@@ -17,13 +19,14 @@ export class CatalogComponent implements OnInit, OnDestroy {
   catalogID: string | null
   private unsubscribe = new Subject<void>()
 
-  @ViewChild(NewProductFormComponent) productForm: NewProductFormComponent
+  @ViewChild(ProductFormComponent) newProductForm: ProductFormComponent
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private socket: Socket,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -53,7 +56,12 @@ export class CatalogComponent implements OnInit, OnDestroy {
     this.updateProducts(updatedProducts, (err: unknown) => {
       if (err)
         return this.snackBar.open('There has been problem in updating list')
-      return this.productForm?.resetNewProduct()
+      else {
+        this.newProductForm.nameInput.nativeElement.focus()
+        return (this.newProductForm.newCatalogItem = {
+          name: '',
+        })
+      }
     })
   }
 
@@ -69,6 +77,18 @@ export class CatalogComponent implements OnInit, OnDestroy {
     updatedProducts.splice(index, 1)
 
     this.updateProducts(updatedProducts)
+  }
+
+  editProduct(index: number): void {
+    const dialogRef = this.dialog.open(EditProductDialogComponent, {
+      data: JSON.parse(JSON.stringify(this.catalog.products[index])),
+    })
+
+    dialogRef.afterClosed().subscribe((result: Product) => {
+      const updatedProducts = JSON.parse(JSON.stringify(this.catalog.products))
+      updatedProducts[index] = result
+      this.updateProducts(updatedProducts)
+    })
   }
 
   private updateProducts(
