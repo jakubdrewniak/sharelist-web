@@ -85,6 +85,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
     })
 
     dialogRef.afterClosed().subscribe((result: Product) => {
+      if (!result) return
       const updatedProducts = JSON.parse(JSON.stringify(this.catalog.products))
       updatedProducts[index] = result
       this.updateProducts(updatedProducts)

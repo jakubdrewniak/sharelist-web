@@ -34,6 +34,7 @@ export class HomeComponent implements OnDestroy {
     })
 
     dialogRef.afterClosed().subscribe((result: string) => {
+      if (!result) return
       this.newCatalogName = result
       this.addCatalog(result)
     })

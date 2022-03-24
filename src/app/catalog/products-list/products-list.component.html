@@ -10,11 +10,11 @@
     >
       <div class="flex items-center mr-2">
         <div class="gap-2 hidden sm:flex">
-          <button mat-icon-button color="primary" (click)="deleteItem(index)">
-            <mat-icon>delete</mat-icon>
+          <button mat-icon-button (click)="deleteItem(index)">
+            <mat-icon class="text-indigo-500">delete</mat-icon>
           </button>
           <button mat-icon-button color="primary" (click)="editItem(index)">
-            <mat-icon>edit</mat-icon>
+            <mat-icon class="text-indigo-500">edit</mat-icon>
           </button>
         </div>
         <div class="block sm:hidden">
@@ -24,7 +24,7 @@
             [matMenuTriggerFor]="menu"
             [matMenuTriggerData]="{ index: index }"
           >
-            <mat-icon>more_vert</mat-icon>
+            <mat-icon class="text-indigo-500">more_vert</mat-icon>
           </button>
         </div>
       </div>

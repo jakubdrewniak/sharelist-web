@@ -1,7 +1,12 @@
 <form (ngSubmit)="submitForm()" class="flex gap-2 mt-4">
   <mat-form-field class="min-w-0 flex-1">
     <mat-label>Add new product*</mat-label>
-    <input name="name" matInput [(ngModel)]="newCatalogItem.name" #nameInput />
+    <input
+      name="name"
+      matInput
+      [(ngModel)]="newCatalogItem.name"
+      cdkFocusInitial
+    />
   </mat-form-field>
 
   <mat-form-field class="w-16">
