@@ -61,9 +61,8 @@ export class CatalogComponent implements OnInit, OnDestroy {
     )
   }
 
-  itemCheckToggle(products: Product[] | undefined, index: number): void {
-    if (!products) return
-    const updatedProducts = JSON.parse(JSON.stringify(products))
+  toggleCompleted(index: number): void {
+    const updatedProducts = JSON.parse(JSON.stringify(this.catalog.products))
     updatedProducts[index].completed = !updatedProducts[index].completed
 
     this.socket.emit(

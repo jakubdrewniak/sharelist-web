@@ -1,0 +1,36 @@
+<mat-list role="list">
+  <mat-list-item
+    *ngFor="let item of products; index as index"
+    [ngClass]="{ 'bg-indigo-50': item.completed }"
+    matRipple
+    [matRippleTrigger]="rippleTrigger"
+  >
+    <div
+      class="flex items-center gap-1 justify-between w-full h-full items-stretch"
+    >
+      <div
+        class="flex flex-1 items-center gap-1 cursor-pointer"
+        #rippleTrigger
+        (click)="itemCheckToggle(index)"
+      >
+        <span
+          class="text-base text-indigo-900"
+          [ngClass]="{ 'text-indigo-300': item.completed }"
+          >{{ item.name }}</span
+        >
+        <span class="text-sm text-indigo-300">{{ item.quantity }}</span>
+        <span class="text-sm text-indigo-300" *ngIf="item.quantity">{{
+          item.unit
+        }}</span>
+      </div>
+
+      <div class="flex items-center">
+        <mat-checkbox
+          color="primary"
+          [checked]="!!item.completed"
+          (change)="itemCheckToggle(index)"
+        ></mat-checkbox>
+      </div>
+    </div>
+  </mat-list-item>
+</mat-list>

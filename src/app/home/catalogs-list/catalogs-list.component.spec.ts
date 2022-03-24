@@ -16,9 +16,9 @@ describe('CatalogsListComponent', () => {
 
   let mockCatalogsSvc: jasmine.SpyObj<CatalogsListService>
   const mockData: Catalog[] = [
-    { name: 'catalog1' },
-    { name: 'catalog2' },
-    { name: 'catalog3' },
+    { name: 'catalog1', products: [] },
+    { name: 'catalog2', products: [] },
+    { name: 'catalog3', products: [] },
   ]
 
   beforeEach(async () => {

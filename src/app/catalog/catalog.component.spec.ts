@@ -7,6 +7,7 @@ import { of } from 'rxjs'
 import { HeaderComponent } from '../shared/header/header.component'
 import { FormsModule } from '@angular/forms'
 import { NewProductFormComponent } from './new-product-form/new-product-form.component'
+import { ProductsListComponent } from './products-list/products-list.component'
 
 describe('CatalogComponent', () => {
   let component: CatalogComponent
@@ -18,6 +19,7 @@ describe('CatalogComponent', () => {
         CatalogComponent,
         HeaderComponent,
         NewProductFormComponent,
+        ProductsListComponent,
       ],
       imports: [
         RouterTestingModule,

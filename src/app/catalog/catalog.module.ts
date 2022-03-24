@@ -6,9 +6,14 @@ import { FormsModule } from '@angular/forms'
 import { MaterialModule } from '../material.module'
 import { SharedModule } from '../shared/shared.module'
 import { NewProductFormComponent } from './new-product-form/new-product-form.component'
+import { ProductsListComponent } from './products-list/products-list.component'
 
 @NgModule({
-  declarations: [CatalogComponent, NewProductFormComponent],
+  declarations: [
+    CatalogComponent,
+    NewProductFormComponent,
+    ProductsListComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
