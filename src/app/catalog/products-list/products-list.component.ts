@@ -9,8 +9,13 @@ import { Product } from 'src/app/shared/typings/catalog'
 export class ProductsListComponent {
   @Input() products: Product[]
   @Output() toggleCompleted: EventEmitter<number> = new EventEmitter<number>()
+  @Output() deleteProduct: EventEmitter<number> = new EventEmitter<number>()
 
   itemCheckToggle(index: number): void {
     this.toggleCompleted.emit(index)
+  }
+
+  deleteItem(index: number): void {
+    this.deleteProduct.emit(index)
   }
 }

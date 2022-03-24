@@ -13,5 +13,6 @@
   <app-products-list
     [products]="catalog.products"
     (toggleCompleted)="toggleCompleted($event)"
+    (deleteProduct)="deleteProduct($event)"
   ></app-products-list>
 </section>

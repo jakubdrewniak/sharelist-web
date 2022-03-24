@@ -8,6 +8,27 @@
     <div
       class="flex items-center gap-1 justify-between w-full h-full items-stretch"
     >
+      <div class="flex items-center mr-2">
+        <div class="gap-2 hidden sm:flex">
+          <button mat-icon-button color="primary" (click)="deleteItem(index)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button color="primary">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+        <div class="block sm:hidden">
+          <button
+            mat-icon-button
+            color="primary"
+            [matMenuTriggerFor]="menu"
+            [matMenuTriggerData]="{ index: index }"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+      </div>
+
       <div
         class="flex flex-1 items-center gap-1 cursor-pointer"
         #rippleTrigger
@@ -34,3 +55,16 @@
     </div>
   </mat-list-item>
 </mat-list>
+
+<mat-menu #menu="matMenu">
+  <ng-template matMenuContent let-index="index">
+    <button mat-menu-item (click)="deleteItem(index)">
+      <mat-icon>delete</mat-icon>
+      <span>Delete</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>edit</mat-icon>
+      <span>Edit</span>
+    </button>
+  </ng-template>
+</mat-menu>

@@ -50,25 +50,35 @@ export class CatalogComponent implements OnInit, OnDestroy {
       ...(this.catalog?.products || []),
     ]
 
-    this.socket.emit(
-      'updateProducts',
-      { _id: this.catalogID, products: updatedProducts },
-      (err: unknown) => {
-        if (err)
-          return this.snackBar.open('There has been problem in updating list')
-        return this.productForm?.resetNewProduct()
-      }
-    )
+    this.updateProducts(updatedProducts, (err: unknown) => {
+      if (err)
+        return this.snackBar.open('There has been problem in updating list')
+      return this.productForm?.resetNewProduct()
+    })
   }
 
   toggleCompleted(index: number): void {
     const updatedProducts = JSON.parse(JSON.stringify(this.catalog.products))
     updatedProducts[index].completed = !updatedProducts[index].completed
 
+    this.updateProducts(updatedProducts)
+  }
+
+  deleteProduct(index: number): void {
+    const updatedProducts = JSON.parse(JSON.stringify(this.catalog.products))
+    updatedProducts.splice(index, 1)
+
+    this.updateProducts(updatedProducts)
+  }
+
+  private updateProducts(
+    products: Product[],
+    callback: (error: unknown) => void = () => {}
+  ): void {
     this.socket.emit(
       'updateProducts',
-      { _id: this.catalogID, products: updatedProducts },
-      () => {}
+      { _id: this.catalogID, products: products },
+      callback
     )
   }
 

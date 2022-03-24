@@ -12,6 +12,7 @@ import {
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar'
 import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatMenuModule } from '@angular/material/menu'
 
 const MaterialModules = [
   MatButtonModule,
@@ -24,6 +25,7 @@ const MaterialModules = [
   MatInputModule,
   MatSnackBarModule,
   MatCheckboxModule,
+  MatMenuModule,
 ]
 
 @NgModule({
